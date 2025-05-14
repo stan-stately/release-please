@@ -1218,11 +1218,29 @@ describe('Manifest', () => {
           sha: 'abc123',
           message: 'some commit message',
           files: [],
+          pullRequest: {
+            headBranchName: 'release-please/branches/main/components/foobar',
+            baseBranchName: 'main',
+            number: 123,
+            title: 'chore: release foobar 1.2.3',
+            body: '',
+            labels: [],
+            files: [],
+          },
         },
         {
           sha: 'def234',
           message: 'some commit message',
           files: [],
+          pullRequest: {
+            headBranchName: 'release-please/branches/main/components/foobar',
+            baseBranchName: 'main',
+            number: 123,
+            title: 'chore: release foobar 1.2.3',
+            body: '',
+            labels: [],
+            files: [],
+          },
         },
       ]);
       mockReleases(sandbox, github, [
@@ -1262,11 +1280,29 @@ describe('Manifest', () => {
           sha: 'abc123',
           message: 'some commit message',
           files: [],
+          pullRequest: {
+            headBranchName: 'release-please/branches/main/components/foobar',
+            baseBranchName: 'main',
+            number: 123,
+            title: 'chore: release foobar 1.2.3',
+            body: '',
+            labels: [],
+            files: [],
+          },
         },
         {
           sha: 'def234',
           message: 'some commit message',
           files: [],
+          pullRequest: {
+            headBranchName: 'release-please/branches/main/components/foobar',
+            baseBranchName: 'main',
+            number: 123,
+            title: 'chore: release foobar 1.2.3',
+            body: '',
+            labels: [],
+            files: [],
+          },
         },
       ]);
       mockReleases(sandbox, github, []);
