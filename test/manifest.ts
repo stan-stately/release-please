@@ -918,6 +918,31 @@ describe('Manifest', () => {
       expect(manifest.repositoryConfig['node-packages'].draftPullRequest).to.be
         .false;
     });
+
+    it('should consider automerge', async () => {
+      const getFileContentsStub = sandbox.stub(
+        github,
+        'getFileContentsOnBranch'
+      );
+      getFileContentsStub
+        .withArgs('release-please-config.json', 'main')
+        .resolves(
+          buildGitHubFileContent(fixturesPath, 'manifest/config/automerge.json')
+        )
+        .withArgs('.release-please-manifest.json', 'main')
+        .resolves(
+          buildGitHubFileContent(
+            fixturesPath,
+            'manifest/versions/versions.json'
+          )
+        );
+      const manifest = await Manifest.fromManifest(
+        github,
+        github.repository.defaultBranch
+      );
+      expect(manifest.repositoryConfig['.'].automerge).to.be.true;
+      expect(manifest.repositoryConfig['node-packages'].automerge).to.be.false;
+    });
   });
 
   describe('fromConfig', () => {
@@ -1193,29 +1218,11 @@ describe('Manifest', () => {
           sha: 'abc123',
           message: 'some commit message',
           files: [],
-          pullRequest: {
-            headBranchName: 'release-please/branches/main/components/foobar',
-            baseBranchName: 'main',
-            number: 123,
-            title: 'chore: release foobar 1.2.3',
-            body: '',
-            labels: [],
-            files: [],
-          },
         },
         {
           sha: 'def234',
           message: 'some commit message',
           files: [],
-          pullRequest: {
-            headBranchName: 'release-please/branches/main/components/foobar',
-            baseBranchName: 'main',
-            number: 123,
-            title: 'chore: release foobar 1.2.3',
-            body: '',
-            labels: [],
-            files: [],
-          },
         },
       ]);
       mockReleases(sandbox, github, [
@@ -1255,29 +1262,11 @@ describe('Manifest', () => {
           sha: 'abc123',
           message: 'some commit message',
           files: [],
-          pullRequest: {
-            headBranchName: 'release-please/branches/main/components/foobar',
-            baseBranchName: 'main',
-            number: 123,
-            title: 'chore: release foobar 1.2.3',
-            body: '',
-            labels: [],
-            files: [],
-          },
         },
         {
           sha: 'def234',
           message: 'some commit message',
           files: [],
-          pullRequest: {
-            headBranchName: 'release-please/branches/main/components/foobar',
-            baseBranchName: 'main',
-            number: 123,
-            title: 'chore: release foobar 1.2.3',
-            body: '',
-            labels: [],
-            files: [],
-          },
         },
       ]);
       mockReleases(sandbox, github, []);

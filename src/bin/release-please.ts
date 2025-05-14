@@ -95,6 +95,7 @@ interface PullRequestArgs {
   label?: string;
   skipLabeling?: boolean;
   signoff?: string;
+  automerge?: boolean;
 }
 
 interface PullRequestStrategyArgs {
@@ -256,6 +257,11 @@ function pullRequestOptions(yargs: yargs.Argv): yargs.Argv {
       describe:
         'Add Signed-off-by line at the end of the commit log message using the user and email provided. (format "Name <email@example.com>").',
       type: 'string',
+    })
+    .option('automerge', {
+      describe: 'automatically merge pull request when all checks pass',
+      type: 'boolean',
+      default: false,
     });
 }
 
@@ -906,6 +912,9 @@ function extractManifestOptions(
   }
   if ('draftPullRequest' in argv && argv.draftPullRequest !== undefined) {
     manifestOptions.draftPullRequest = argv.draftPullRequest;
+  }
+  if ('automerge' in argv && argv.automerge !== undefined) {
+    manifestOptions.automerge = argv.automerge;
   }
   return manifestOptions;
 }

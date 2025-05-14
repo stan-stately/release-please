@@ -370,6 +370,34 @@ describe('Strategy', () => {
       expect(pullRequest).to.exist;
       expect(pullRequest?.labels).to.eql(['foo', 'bar']);
     });
+    it('sets automerge flag to false by default', async () => {
+      const strategy = new TestStrategy({
+        targetBranch: 'main',
+        github,
+        component: 'google-cloud-automl',
+      });
+      const pullRequest = await strategy.buildReleasePullRequest(
+        buildMockConventionalCommit('fix: a bugfix'),
+        undefined
+      );
+      expect(pullRequest).to.exist;
+      expect(pullRequest?.automerge).to.eql(false);
+    });
+
+    it('sets automerge flag to true when configured', async () => {
+      const strategy = new TestStrategy({
+        targetBranch: 'main',
+        github,
+        component: 'google-cloud-automl',
+        automerge: true,
+      });
+      const pullRequest = await strategy.buildReleasePullRequest(
+        buildMockConventionalCommit('fix: a bugfix'),
+        undefined
+      );
+      expect(pullRequest).to.exist;
+      expect(pullRequest?.automerge).to.eql(true);
+    });
   });
   describe('buildRelease', () => {
     it('builds a release tag', async () => {

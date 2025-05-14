@@ -200,6 +200,7 @@ export type ChangeSet = Map<string, FileDiff>;
 interface CreatePullRequestOptions {
   fork?: boolean;
   draft?: boolean;
+  automerge?: boolean;
 }
 
 export class GitHub {
@@ -1128,6 +1129,7 @@ export class GitHub {
       {
         fork: options?.fork,
         draft: releasePullRequest.draft,
+        automerge: releasePullRequest.automerge,
       }
     );
   }

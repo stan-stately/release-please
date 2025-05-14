@@ -85,6 +85,7 @@ export interface BaseStrategyOptions {
   initialVersion?: string;
   extraLabels?: string[];
   dateFormat?: string;
+  automerge?: boolean;
 }
 
 /**
@@ -115,6 +116,7 @@ export abstract class BaseStrategy implements Strategy {
   readonly extraFiles: ExtraFile[];
   readonly extraLabels: string[];
   protected dateFormat: string;
+  protected automerge: boolean;
 
   readonly changelogNotes: ChangelogNotes;
 
@@ -151,6 +153,7 @@ export abstract class BaseStrategy implements Strategy {
     this.initialVersion = options.initialVersion;
     this.extraLabels = options.extraLabels || [];
     this.dateFormat = options.dateFormat || DEFAULT_DATE_FORMAT;
+    this.automerge = options.automerge ?? false;
   }
 
   /**
@@ -359,6 +362,7 @@ export abstract class BaseStrategy implements Strategy {
       headRefName: branchName.toString(),
       version: newVersion,
       draft: draft ?? false,
+      automerge: this.automerge,
     };
   }
 

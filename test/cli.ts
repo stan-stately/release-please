@@ -346,6 +346,29 @@ describe('CLI', () => {
       );
       sinon.assert.calledOnce(createPullRequestsStub);
     });
+
+    it('handles --automerge', async () => {
+      await parser.parseAsync(
+        'manifest-pr --repo-url=googleapis/release-please-cli --automerge'
+      );
+
+      sinon.assert.calledOnceWithExactly(gitHubCreateStub, {
+        owner: 'googleapis',
+        repo: 'release-please-cli',
+        token: undefined,
+        apiUrl: 'https://api.github.com',
+        graphqlUrl: 'https://api.github.com',
+      });
+      sinon.assert.calledOnceWithExactly(
+        fromManifestStub,
+        fakeGitHub,
+        'main',
+        DEFAULT_RELEASE_PLEASE_CONFIG,
+        DEFAULT_RELEASE_PLEASE_MANIFEST,
+        sinon.match({automerge: true})
+      );
+      sinon.assert.calledOnce(createPullRequestsStub);
+    });
   });
   describe('manifest-release', () => {
     let fromManifestStub: sinon.SinonStub;
@@ -1151,6 +1174,29 @@ describe('CLI', () => {
           'main',
           sinon.match({releaseType: 'java-yoshi', includeComponentInTag: true}),
           sinon.match.any,
+          undefined
+        );
+        sinon.assert.calledOnce(createPullRequestsStub);
+      });
+
+      it('handles --automerge', async () => {
+        await parser.parseAsync(
+          'release-pr --repo-url=googleapis/release-please-cli --release-type=java-yoshi --automerge'
+        );
+
+        sinon.assert.calledOnceWithExactly(gitHubCreateStub, {
+          owner: 'googleapis',
+          repo: 'release-please-cli',
+          token: undefined,
+          apiUrl: 'https://api.github.com',
+          graphqlUrl: 'https://api.github.com',
+        });
+        sinon.assert.calledOnceWithExactly(
+          fromConfigStub,
+          fakeGitHub,
+          'main',
+          sinon.match({releaseType: 'java-yoshi'}),
+          sinon.match({automerge: true}),
           undefined
         );
         sinon.assert.calledOnce(createPullRequestsStub);

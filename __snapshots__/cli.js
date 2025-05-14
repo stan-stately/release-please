@@ -105,6 +105,8 @@ Options:
   --signoff             Add Signed-off-by line at the end of the commit log
                         message using the user and email provided. (format "Name
                         <email@example.com>").                          [string]
+  --automerge           automatically merge pull request when all checks pass
+                                                      [boolean] [default: false]
   --config-file         where can the config file be found in the project?
                                          [default: "release-please-config.json"]
   --manifest-file       where can the manifest file be found in the project?
@@ -231,6 +233,8 @@ Options:
                                     commit log message using the user and email
                                     provided. (format "Name
                                     <email@example.com>").              [string]
+  --automerge                       automatically merge pull request when all
+                                    checks pass       [boolean] [default: false]
   --include-v-in-tags               include "v" in tag versions
                                                        [boolean] [default: true]
   --monorepo-tags                   include library name in tags and release

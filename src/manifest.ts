@@ -108,6 +108,7 @@ export interface ReleaserConfig {
   draft?: boolean;
   prerelease?: boolean;
   draftPullRequest?: boolean;
+  automerge?: boolean;
   component?: string;
   packageName?: string;
   includeComponentInTag?: boolean;
@@ -165,6 +166,7 @@ interface ReleaserConfigJson {
   draft?: boolean;
   prerelease?: boolean;
   'draft-pull-request'?: boolean;
+  automerge?: boolean;
   label?: string;
   'release-label'?: string;
   'extra-label'?: string;
@@ -204,6 +206,7 @@ export interface ManifestOptions {
   draft?: boolean;
   prerelease?: boolean;
   draftPullRequest?: boolean;
+  automerge?: boolean;
   alwaysUpdate?: boolean;
   groupPullRequestTitlePattern?: string;
   releaseSearchDepth?: number;
@@ -1384,6 +1387,7 @@ function extractReleaserConfig(
     draft: config.draft,
     prerelease: config.prerelease,
     draftPullRequest: config['draft-pull-request'],
+    automerge: config['automerge'],
     component: config['component'],
     packageName: config['package-name'],
     versionFile: config['version-file'],
@@ -1738,6 +1742,7 @@ function mergeReleaserConfig(
     draft: pathConfig.draft ?? defaultConfig.draft,
     draftPullRequest:
       pathConfig.draftPullRequest ?? defaultConfig.draftPullRequest,
+    automerge: pathConfig.automerge ?? defaultConfig.automerge,
     prerelease: pathConfig.prerelease ?? defaultConfig.prerelease,
     component: pathConfig.component ?? defaultConfig.component,
     packageName: pathConfig.packageName ?? defaultConfig.packageName,

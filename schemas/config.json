@@ -70,6 +70,10 @@
           "description": "Open the release pull request in draft mode. Defaults to `false`.",
           "type": "boolean"
         },
+        "automerge": {
+          "description": "Automatically merge the release pull request when all checks pass. Defaults to `false`.",
+          "type": "boolean"
+        },
         "extra-label": {
           "description": "Comma-separated list of labels to add to a newly opened pull request",
           "type": "string"
@@ -329,10 +333,7 @@
                   "type": {
                     "description": "The name of the plugin.",
                     "type": "string",
-                    "enum": [
-                      "cargo-workspace",
-                      "maven-workspace"
-                    ]
+                    "enum": ["cargo-workspace", "maven-workspace"]
                   },
                   "updateAllPackages": {
                     "description": "Whether to force updating all packages regardless of the dependency tree. Defaults to `false`.",
@@ -355,9 +356,7 @@
                   "type": {
                     "description": "The name of the plugin.",
                     "type": "string",
-                    "enum": [
-                      "node-workspace"
-                    ]
+                    "enum": ["node-workspace"]
                   },
                   "updateAllPackages": {
                     "description": "Whether to force updating all packages regardless of the dependency tree. Defaults to `false`.",
@@ -466,6 +465,7 @@
     "draft": true,
     "prerelease": true,
     "draft-pull-request": true,
+    "automerge": true,
     "label": true,
     "release-label": true,
     "extra-label": true,
